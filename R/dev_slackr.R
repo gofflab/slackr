@@ -31,14 +31,15 @@
 #' @export
 dev_slackr <- function(channels=Sys.getenv("SLACK_CHANNEL"), ...,
                        api_token=Sys.getenv("SLACK_API_TOKEN"),
-                       file="plot") {
+                       file="plot",
+                       fileext=".pdf") {
 
   loc <- Sys.getlocale('LC_CTYPE')
   Sys.setlocale('LC_CTYPE','C')
   on.exit(Sys.setlocale("LC_CTYPE", loc))
 
-  ftmp <- tempfile(file, fileext=".png")
-  dev.copy(png, file=ftmp, ...)
+  ftmp <- tempfile(file, fileext=fileext)
+  dev.copy(pdf, file=ftmp, ...)
   dev.off()
 
   modchan <- slackrChTrans(channels)

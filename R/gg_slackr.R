@@ -37,13 +37,14 @@ ggslackr <- function(plot=last_plot(),
                      limitsize=TRUE,
                      api_token=Sys.getenv("SLACK_API_TOKEN"),
                      file="ggplot",
+                     fileext=".pdf",
                      ...) {
 
   loc <- Sys.getlocale('LC_CTYPE')
   Sys.setlocale('LC_CTYPE','C')
   on.exit(Sys.setlocale("LC_CTYPE", loc))
 
-  ftmp <- tempfile(file, fileext=".png")
+  ftmp <- tempfile(file, fileext=fileext)
   ggsave(filename=ftmp,
          plot=plot,
          scale=scale,
@@ -59,7 +60,8 @@ ggslackr <- function(plot=last_plot(),
               add_headers(`Content-Type`="multipart/form-data"),
               body=list(file=upload_file(ftmp),
                         token=api_token,
-                        channels=modchan))
+                        channels=modchan,
+                        as_user=FALSE))
 
   invisible(res)
 

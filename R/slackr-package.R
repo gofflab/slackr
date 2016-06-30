@@ -30,7 +30,7 @@
 #' @importFrom dplyr data_frame left_join bind_rows
 #' @importFrom jsonlite toJSON
 #' @import utils
-#' @importFrom grDevices dev.copy dev.off png
+#' @importFrom grDevices dev.copy dev.off png pdf
 #' @importFrom graphics par
 #' @examples
 #' \dontrun{
